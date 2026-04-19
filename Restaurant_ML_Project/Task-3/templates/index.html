@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Restaurant Recommendation System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<div class="container">
+    <h1>Restaurant Recommender</h1>
+
+    <form method="POST">
+        <input type="text" name="cuisine" placeholder="Enter Cuisine (e.g. Chinese)" required>
+
+        <select name="price">
+            <option value="1">Low</option>
+            <option value="2">Medium</option>
+            <option value="3">High</option>
+            <option value="4">Luxury</option>
+        </select>
+
+        <select name="delivery">
+            <option value="Yes">Online Delivery - Yes</option>
+            <option value="No">Online Delivery - No</option>
+        </select>
+
+        <button type="submit">Recommend</button>
+    </form>
+
+    {% if recommendations %}
+        <h3>Recommended Restaurants:</h3>
+
+        {% for r in recommendations %}
+            <div class="result">
+                <b>{{ r['Restaurant Name'] }}</b><br>
+                {{ r['Cuisines'] }}<br>
+                Price Range: {{ r['Price range'] }}
+            </div>
+        {% endfor %}
+
+    {% elif recommendations is not none %}
+        <div class="no-result">
+            ❌ No restaurants found. Try different inputs.
+        </div>
+    {% endif %}
+
+</div>
+
+</body>
+</html>
